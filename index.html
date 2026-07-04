@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>七夕 願い事メーカー</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: system-ui, -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif;
@@ -80,7 +83,7 @@
       <textarea id="wish" placeholder="例：毎日楽しく過ごせますように"></textarea>
 
       <label>名前</label>
-      <input id="name" placeholder="例：みさき">
+      <input id="name" placeholder="例：まきみん">
 
       <button id="drawBtn">画像を作る</button>
       <button id="downloadBtn" class="secondary">PNGでダウンロード</button>
@@ -89,7 +92,7 @@
     </div>
 
     <div class="card">
-      <canvas id="canvas" width="500" height="1000"></canvas>
+      <canvas id="canvas" width="500" height="1200"></canvas>
     </div>
   </div>
 
@@ -101,7 +104,7 @@ bgImage.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAASwCAIAAACCRS8
 
 function drawVerticalText(text, x, y, fontSize, lineGap, color, maxCharsPerLine = 14) {
   ctx.fillStyle = color;
-  ctx.font = `bold ${fontSize}px "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif`;
+  ctx.font = `${fontSize}px "Yomogi", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
 
@@ -133,10 +136,10 @@ function draw() {
   ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
   // 願い事：中央の白い余白に縦書き
-  drawVerticalText(wish, 300, 190, 28, 38, "#3f3f3f", 18);
+  drawVerticalText(wish, 315, 220, 56, 72, "#3f3f3f", 13);
 
   // 名前：下部に縦書き
-  drawVerticalText(name, 150, 650, 22, 30, "#3f3f3f", 8);
+  drawVerticalText(name, 155, 790, 44, 56, "#3f3f3f", 6);
 }
 
 document.getElementById("drawBtn").addEventListener("click", draw);
@@ -149,7 +152,9 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   a.click();
 });
 
-bgImage.onload = draw;
+bgImage.onload = () => {
+  document.fonts.ready.then(draw);
+};
 </script>
 </body>
 </html>
